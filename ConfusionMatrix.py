@@ -1,7 +1,6 @@
 import numpy as np
 
 
-
 # Class that represents a confusion matrix
 class ConfusionMatrix:
     # constructor for a confusion matrix in an n class problem
