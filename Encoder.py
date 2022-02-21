@@ -107,9 +107,7 @@ class Encoder:
         print(insert_attributes_string)
         print(attributes)
         cur.executemany(insert_attributes_string, attributes)
-        
-        # print(attributes)
-        # print(eval(attributes[4][2]))
+
 
 
 
@@ -117,35 +115,5 @@ class Encoder:
         con.commit()
         # close the connection
         con.close()
-
-    def header_test(self):
-        # Connecting to sqlite
-        conn = sqlite3.connect(self.sqlite_filename)
-
-        # Creating a cursor object using the cursor() method
-        cursor = conn.cursor()
-
-        print('\nColumns in iris table:')
-        connection_string = '''SELECT * FROM ''' + self.title
-        data = cursor.execute(connection_string)
-        for column in data.description:
-            print(column[0])
-        for col in data:
-            print(col)
-            # print(int.from_bytes(col[4], "little"))
-
-        print('\nColumns in iris attribute table:')
-        connection_string = '''SELECT * FROM ''' + self.title + 'Attributes'
-        data = cursor.execute(connection_string)
-        for column in data.description:
-            print(column[0])
-        i = 0
-        for col in data:
-            print(col)
-            if i == 4:
-                x = eval(col[2])
-                print(type(x))
-                print(x)
-            i += 1
 
 
