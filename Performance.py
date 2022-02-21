@@ -2,12 +2,32 @@ import numpy as np
 from ConfusionMatrix import ConfusionMatrix
 
 
+# class that will be used to accumulate performance across folds
+class PerformanceAccumulator:
+    def __init__(self):
+        self.acumm_metrics = np.zeros(7)
+        self.performances_added = 0
+
+    def __iadd__(self, performance):
+        self.acumm_metrics[0] += performance.get_accuracy()
+        self.accum_metrics[1] += performance.get_micro_precision()
+        self.accum_metrics[2] += performance.get_micro_recall()
+        self.accum_metrics[3] += performance.get_micro_f1()
+        macro = performance.all_macro()
+        self.accum_metrics[4] += macro["macro_precision"]
+        self.accum_metrics[5] += macro["macro_recall"]
+        self.accum_metrics[6] += macro["macro_f1"]
+        self.performances_added += 1
+
+    def get_averages(self):
+        return self.acumm_metrics/self.performances_added
+
+
 # Class that represent the accumulated performance metrics for a classifier
 class Performance:
     # Performance constructor that will create a performance object for a problem with n classes
     def __init__(self, n_classes):
         self.confusionMx = ConfusionMatrix(n_classes)
-        self.acummMetrics = np.zeros(7)
         self.n_classes = n_classes
 
     # using np arrays of actual values vs predicted values, populate the confusion matrix
@@ -27,7 +47,7 @@ class Performance:
             correct += self.confusionMx.get_tp(i)
         total = self.confusionMx.total_predictions
 
-        return correct/total
+        return correct / total
 
     # method that will get the precision for the class label passed in
     def get_precision(self, class_label):

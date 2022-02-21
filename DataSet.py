@@ -6,6 +6,7 @@ from random import randint
 from copy import deepcopy
 from TrainTestSets import TrainTestSets
 
+
 # class that will hold all the information for a dataset
 class DataSet:
     def __init__(self, *args):
@@ -62,5 +63,3 @@ class DataSet:
         test = DataSet(test_name, self.attributes, deepcopy(self.folds[i]))
 
         return TrainTestSets(train, test)
-
-

@@ -34,12 +34,15 @@ class CategoricalAttribute(Attribute):
     def __delitem__(self, key):
         self.values_list.pop(key)
 
+    def __len__(self):
+        return len(self.values_list)
+
 
 # class that will hold all the attributes for a dataset
 class Attributes:
     def __init__(self):
         self.attributes = []
-        self.class_label_index = None
+        self.class_label_index = -1
 
     def __setitem__(self, key, value):
         self.attributes[key] = value
