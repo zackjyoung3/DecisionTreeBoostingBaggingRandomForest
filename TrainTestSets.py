@@ -4,3 +4,6 @@ class TrainTestSets:
     def __init__(self, train, test):
         self.train = train
         self.test = test
+
+    def __str__(self):
+        return "Train-" + str(self.train) + "\n\nTest-" + str(self.test)

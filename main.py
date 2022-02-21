@@ -23,4 +23,6 @@ if __name__ == '__main__':
 
     test = DataSet("Iris")
     test.load_data()
-    print(test)
+    # print(test)
+    test.get_k_folds(10)
+    print(test.train_test_holdout(1))

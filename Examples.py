@@ -1,13 +1,19 @@
 import numpy as np
 from Attributes import Attributes
+from copy import deepcopy
 
 
 # class that will contain all of the examples for a dataset
 class Examples:
-    def __init__(self, attributes):
-        self.examples = None
-        self.example_weights = None
-        self.attributes = attributes
+    def __init__(self, *args):
+        if len(args) == 1:
+            self.examples = None
+            self.example_weights = None
+            self.attributes = args[0]
+        else:
+            self.examples = args[1]
+            self.example_weights = None
+            self.attributes = args[0]
 
     def __setitem__(self, key, value):
         self.examples[key] = value
@@ -48,3 +54,11 @@ class Examples:
 
         self.examples = np.array(examples)
         self.example_weights = np.ones(len(examples))
+
+    # will return k random sets of examples all with approximately equal numbers of examples
+    def get_k_sets(self, k):
+        shuffle_copy = deepcopy(self.examples)
+        np.random.shuffle(shuffle_copy)
+        sets = np.array_split(shuffle_copy, k)
+
+        return sets
